@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="sale_report_format_details_form" model="ir.ui.view">
+        <field name="name">Sale Format</field>
+        <field name="model">sale.report.format.details</field>
+        <field name="arch" type="xml">
+            <form string="Sale Format">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="activated"/>
+                        </group>
+                        <group>
+                            <field name="stamp_img" widget="image" class="oe_avatar m-0" nolable="1" string=""/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Format">
+                            <h6>Terms and Condition</h6>
+                            <field name="terms_and_condition_id">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                            <h6>Notes</h6>
+                            <field name="note_id">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                            <h6>Payment Condition</h6>
+                            <field name="payment_condition_id">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                            <h6>Client Scope</h6>
+                            <field name="client_scope_id">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                            <h6>Contractor Scope</h6>
+                            <field name="contractor_scope_id">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Bank Details">
+                            <group>
+                                <group>
+                                    <field name="account_name"/>
+                                    <field name="bank_name"/>
+                                    <field name="account_number"/>
+                                    <field name="iban_number"/>
+                                    <field name="arabic_account_name"/>
+                                    <field name="arabic_bank_name"/>
+                                </group>
+                                <group>
+
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_report_format_details_tree" model="ir.ui.view">
+        <field name="name">Sale Format</field>
+        <field name="model">sale.report.format.details</field>
+        <field name="arch" type="xml">
+            <tree string="Sale Format">
+                <field name="name"/>
+                <field name="activated"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sale_report_format_details_action" model="ir.actions.act_window">
+        <field name="name">Sale Format</field>
+        <field name="res_model">sale.report.format.details</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Sale Format Created!
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Format Configuration" id="sale_format_configuration_trading" parent="enz_field_installation.enzcontract_config"
+              sequence="99" groups="enz_trading_extension.group_admin,enz_trading_extension.group_sales_manager"/>
+
+
+    <menuitem name="Sales Format" action="sale_report_format_details_action"
+              parent="sale_format_configuration_trading"
+              id="sale_format_configuration" sequence="-1"/>
+</odoo>

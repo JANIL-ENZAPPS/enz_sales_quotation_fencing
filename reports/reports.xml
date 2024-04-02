@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="sales_quotation_formate_fencing_id" model="ir.actions.report">
+        <field name="name">Sales Quotation</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">enz_sales_quotation_fencing.report_sale_order</field>
+        <field name="report_file">enz_sales_quotation_fencing.report_sale_order</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="enz_sales_quotation_fencing.paperformat_fencing"/>
+    </record>
+</odoo>

@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_sale_order_fencing">
+        <t t-call="enz_sales_quotation_fencing.external_layout_seti">
+            <t t-foreach="doc" t-as="o">
+                <div class="page">
+                    <!--					<link rel="stylesheet" href="/enz_dynamic_design_standard/static/src/css/style.css"/>-->
+                    <style>
+                        .font{
+                        font-family:'traditional_arabic';;font-weight:100;font-size: 13px;
+                        }
+
+                        @font-face {
+                        font-family: 'DroidArabicKufiBold';
+                        src: url('/enz_dynamic_design_standard/static/src/fonts/DroidKufi-Bold.ttf') format('truetype');
+                        font-weight: bold;
+                        font-style: normal;
+                        }
+
+                        @font-face {
+                        font-family: 'DroidArabicKufiRegular';
+                        src: url('/enz_dynamic_design_standard/static/src/fonts/DroidKufi-Regular.ttf')
+                        format('truetype');
+                        font-weight: normal;
+                        font-style: normal;
+                        }
+
+                        .arabic{
+                        font-family:DroidArabicKufiRegular !important;
+                        }
+
+                    </style>
+
+                    <t t-set="company" t-value="res_company"/>
+                    <div class="font">
+                        <br/>
+                        <table style="width:100%;color:black; font-family:Arial !important;page-break-inside: avoid;"
+                               class="table-condensed table-sm">
+                            <tr>
+                                <td style="font-weight: bold;text-align:center;width:100%;border:0px;">
+                                    <t t-if="o.state == 'draft'">
+                                        <span style="font-size:30px;font-weight: bold;">
+                                            <u>QUOTATION &amp;nbsp;&amp;nbsp;
+                                                <span class="arabic" style=" text-align:right;">اقتباس</span>
+                                            </u>
+                                        </span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="text-right arabic">
+                                            <b>
+                                                <u>SALE ORDER &amp;nbsp;&amp;nbsp;
+                                                    <span class="arabic" style=" text-align:right;">أمر البيع</span>
+                                                </u>
+                                            </b>
+                                        </span>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="row mt32 mb32" style="padding-top:0px;">
+                            <div class="col-6" style="margin-top:5pt; color:black;">
+                                <br/>
+                                <table style="border:2pt solid #E5EAE9;width:100%;padding:10pt;color:black;height:200px;page-break-inside: avoid;"
+                                       class="table table-bordered table-sm">
+                                    <tr rowspan="4">
+                                        <td style="width:33%;border-bottom:0pt;">
+                                            <span style="font-weight: bold;">To:</span>
+                                            <br/>
+                                            <div style="padding-left:15px;font-weight: bold;">
+                                                <t t-if="o.partner_id">
+                                                    <span style="font-weight: bold;" t-field="o.partner_id.name"/>
+                                                    <br/>
+                                                </t>
+                                                <t t-if="o.partner_id.street">
+                                                    <span t-field="o.partner_id.street"/>
+                                                    <br/>
+                                                </t>
+                                                <t t-if="o.partner_id.state_id.name">
+                                                    <span t-field="o.partner_id.state_id.name"/>
+                                                    <br/>
+                                                </t>
+                                                <t t-if="o.partner_id.city">
+                                                    <span t-field="o.partner_id.city"/>
+                                                    <br/>
+                                                </t>
+                                                <t t-if="o.partner_id.country_id.name">
+                                                    <span t-field="o.partner_id.country_id.name"/>
+                                                    <br/>
+                                                </t>
+                                                <t t-if="o.partner_id.vat">
+                                                    <span t-field="o.partner_id.vat"/>
+                                                </t>
+                                            </div>
+                                            <div style="padding-top:15px;margin-bottom:0px;">
+                                                <t t-if="o.attention_id">
+                                                    Attention:&amp;nbsp;&amp;nbsp;
+                                                    <span t-field="o.attention_id.name"/>
+                                                    <br/>
+                                                </t>
+                                                <t t-if="o.attention_id.mobile">
+                                                    Mobile:&amp;nbsp;&amp;nbsp;
+                                                    <span t-field="o.attention_id.mobile"/>
+                                                    <br/>
+                                                </t>
+                                                <t t-if="o.attention_id.email">
+                                                    Email ID:&amp;nbsp;&amp;nbsp;
+                                                    <span t-field="o.attention_id.email"/>
+                                                    <br/>
+                                                </t>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ref No.&amp;nbsp;
+                                            <span t-field="o.client_order_ref"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br/>
+                            </div>
+                            <div class="col-6" style="margin-top:5pt;color:black; padding-left:5pt">
+                                <br/>
+                                <table style="border:2pt solid #E5EAE9;width:100%;padding:10pt;color:black;height:200px;page-break-inside: avoid;"
+                                       class="table table-bordered table-sm">
+                                    <tr>
+                                        <td style="border-right:0px;">Quotation Date
+                                        </td>
+                                        <td style="border-left:0px;">
+                                            <span class="arabic" style="text-align:right;">تاريخ</span>
+                                        </td>
+                                        <td style="padding-left:10px;">
+                                            <span t-esc="o.date_time_formate_fix(o.date_order)"/>
+                                        </td>
+                                        <!--									<td class="arabic" style="width:33%; text-align:right;">رقم الفاتورة</td>-->
+                                    </tr>
+                                    <tr>
+                                        <td style="border-right:0px;">Quotation No.
+                                        </td>
+                                        <td style="border-left:0px;">
+                                            <span class="arabic" style="text-align:right;">رقم الإقتباس</span>
+                                        </td>
+                                        <td style="padding-left:10px;">
+                                            <span t-esc="o.name"/> &amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                            <span style="color:#C70629;padding-right:10px;">Rev.
+                                                <t t-if="o.rev">
+                                                    <t t-esc="o.rev"/>
+                                                </t>
+                                            </span>
+                                        </td>
+                                        <!--									<td class="arabic" style="width:33%; text-align:right;">رقم الفاتورة</td>-->
+                                    </tr>
+                                    <tr>
+                                        <td style="border-right:0px;">Contact Person
+                                        </td>
+                                        <td style="border-left:0px;">
+                                            <span class="arabic" style="text-align:right;">أفراد الاتصال</span>
+                                        </td>
+                                        <td style="padding-left:10px;">
+                                            <span t-esc="o.contact_id.name"/>
+                                        </td>
+                                        <!--									<td class="arabic" style=" text-align:right;">تاريخ الفاتورة</td>-->
+                                    </tr>
+                                    <tr>
+                                        <td style="border-right:0px;">Mobile No.
+                                        </td>
+                                        <td style="border-left:0px;">
+                                            <span class="arabic" style="text-align:right;">رقم الجوال</span>
+                                        </td>
+                                        <td style="padding-left:10px;">
+                                            <span t-field="o.company_id.mobile"/>
+                                        </td>
+                                        <!--									<td class="arabic" style=" text-align:right;">تاريخ الاستحقاق</td>-->
+                                    </tr>
+                                    <tr>
+                                        <td style="border-right:0px;">Telephone No.
+                                        </td>
+                                        <td style="border-left:0px;">
+                                            <span class="arabic" style="text-align:right;">رقم هاتف</span>
+                                        </td>
+                                        <td style="padding-left:10px;">
+                                            <span t-field="o.company_id.phone"/>
+                                        </td>
+                                        <!--									<td class="arabic" style=" text-align:right;">تاريخ التسليم</td>-->
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            Email ID: &amp;nbsp;&amp;nbsp; &amp;nbsp;&amp;nbsp; &amp;nbsp;&amp;nbsp;
+                                            <u>
+                                                <a style="color:#19086D;" t-att-href="'mailto:' + o.company_id.email">
+                                                    <t t-esc="o.company_id.email"/>
+                                                </a>
+                                            </u>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br/>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="arabic col-12"
+                                  style="font-family:DroidArabicKufiRegular !important;"
+                                  t-field="o.company_id.quotation_body"/>
+                        </div>
+                        <br/>
+                        <br/>
+                        <table style="width:100%;color:black; margin-top:-15pt; color:black;"
+                               class="table-condensed">
+                            <thead>
+                                <tr>
+                                    <td width="5%"
+                                        style="border-top:1pt solid #E5EAE9;border-left:1pt solid #E5EAE9;border-right:1pt solid #E5EAE9;border-bottom:1pt solid black;text-align:center;font-weight: bold;">
+                                        #
+                                    </td>
+                                    <td width="40%"
+                                        style="border-top:1pt solid #E5EAE9;border-left:1pt solid #E5EAE9;border-right:1pt solid #E5EAE9;border-bottom:1pt solid black;text-align:center;padding:2pt;font-weight: bold;">
+                                        Description
+                                    </td>
+                                    <td style="border-top:1pt solid #E5EAE9;border-left:1pt solid #E5EAE9;border-right:1pt solid #E5EAE9;border-bottom:1pt solid black;text-align:center;padding:2pt;font-weight: bold;">
+                                        Unit
+                                    </td>
+                                    <td style="border-top:1pt solid #E5EAE9;border-left:1pt solid #E5EAE9;border-right:1pt solid #E5EAE9;border-bottom:1pt solid black;text-align:center;padding:2pt;font-weight: bold; ">
+                                        Qty
+                                    </td>
+
+                                    <td style="border-top:1pt solid #E5EAE9;border-left:1pt solid #E5EAE9;border-right:1pt solid #E5EAE9;border-bottom:1pt solid black;text-align:center;padding:2pt;font-weight: bold;">
+                                        Rate (<t t-esc="o.currency_id.symbol"/>)
+                                    </td>
+                                    <!--                                    <td style="border:1pt solid black;text-align:center;padding:2pt;font-weight: bold;">-->
+                                    <!--                                        VAT Amount-->
+                                    <!--                                    </td>-->
+                                    <td width="14%"
+                                        style="border-top:1pt solid #E5EAE9;border-left:1pt solid #E5EAE9;border-right:1pt solid #E5EAE9;border-bottom:1pt solid black;text-align:center;padding:2pt;font-weight: bold;">
+                                        Total (<t t-esc="o.currency_id.symbol"/>)
+                                    </td>
+                                </tr>
+                            </thead>
+                            <t t-set="tax_total" t-value="0"/>
+                            <t t-set="discount_total" t-value="0"/>
+                            <t t-set="sr_no" t-value="0"/>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.order_line" t-as="l">
+                                    <t t-set="sr_no" t-value="sr_no + 1"/>
+                                    <t t-set="line_tax_total" t-value="0"/>
+
+                                    <t t-foreach="l.tax_id" t-as="t">
+                                        <t t-set="tax_total" t-value="tax_total + l.price_subtotal* t.amount/100"/>
+                                        <t t-set="line_tax_total" t-value="line_tax_total + t.amount"/>
+                                    </t>
+                                    <t t-set="discount_total"
+                                       t-value="discount_total + ((l.price_unit * l.product_uom_qty) - l.price_subtotal)"/>
+
+                                    <!-- SL Number -->
+                                    <td style="border-left:1pt solid #E5EAE9;border-right:0px;padding:3pt"
+                                        class="text-center">
+                                        <span t-esc="sr_no"/>
+                                    </td>
+                                    <!-- Product Name -->
+                                    <td style="border-right:0px;padding:3pt">
+                                        <span class="text-right arabic"
+                                              t-esc="doc.get_product_arabic_name(l.product_id.id)"/>
+                                    </td>
+                                    <!-- Qty  -->
+                                    <td style="border-right:0px;text-align:center;padding:3pt">
+                                        <span t-esc="'%.2f'%(l.product_uom_qty)"/>
+                                    </td>
+
+                                    <!-- UOM  -->
+                                    <td style="border-right:0px;text-align:center;padding:3pt">
+                                        <span t-field="l.product_uom.name"/>
+                                    </td>
+
+                                    <!-- Unit Price  -->
+                                    <td style="border-right:0px;text-align:right;padding:3pt">
+                                        <span t-field="l.price_unit"
+                                              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                    </td>
+
+                                    <!-- Total  -->
+                                    <!-- <td style="border-right:1pt solid #E5EAE9;text-align:right;padding:3pt" class="text-right"><span t-esc="tax_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td> -->
+                                    <!--                                    <td style="padding:3pt;border-right:1pt solid #E5EAE9;text-align:right;">-->
+                                    <!--                                        <t t-set="line_tax_total" t-value="l.price_subtotal*line_tax_total/100"/>-->
+                                    <!--                                        <sapn t-esc="line_tax_total"-->
+                                    <!--                                              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>-->
+                                    <!--                                    </td>-->
+
+                                    <td style="padding:3pt;border-right:1pt solid #E5EAE9;text-align:right;">
+                                        <sapn t-esc="l.price_unit * l.product_uom_qty"
+                                              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                    </td>
+                                </tr>
+                                <t t-set="discount_before_total" t-value="doc.amount_untaxed + discount_total"/>
+                                <tr>
+                                    <td class="text-right"
+                                        style="border-left:1pt solid #E5EAE9;text-align:right;border-top:1pt solid #E5EAE9;padding:3pt"
+                                        colspan="5">
+                                        Total Quote Value &amp;nbsp;&amp;nbsp; الإجمالي المبلغ
+                                    </td>
+                                    <!--                                        <td class="text-right arabic"-->
+                                    <!--                                            style="border-right:1pt solid #E5EAE9;text-align:right;padding:3pt">الإجمالي-->
+                                    <!--                                            (شاملاً ضريبة القيمة المضافة)-->
+                                    <!--                                        </td>-->
+                                    <td style="font-weight: bold;border-right:1pt solid #E5EAE9;border-top:1pt solid #E5EAE9;text-align:right;padding:3pt"
+                                        class="text-right">
+                                        <span t-esc="doc.amount_untaxed + doc.amount_discount"
+                                              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"
+                                        style="border-left:1pt solid #E5EAE9;text-align:right;padding:3pt" colspan="5">
+                                        Less Discount &amp;nbsp;&amp;nbsp; خصم أقل
+                                    </td>
+                                    <!--                                    <td class="text-right arabic"-->
+                                    <!--                                        style="border-right:1pt solid #E5EAE9;text-align:right;padding:3pt">مجموع الخصم-->
+                                    <!--                                    </td>-->
+                                    <td style="font-weight: bold;border-right:1pt solid #E5EAE9;text-align:right;padding:3pt"
+                                        class="text-right">
+                                        <span t-esc="doc.amount_discount"
+                                              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                        <!--<span t-esc="discount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>-->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"
+                                        style="border-left:1pt solid #E5EAE9;text-align:right;padding:3pt" colspan="5">
+                                        Total Amount Before VAT &amp;nbsp;&amp;nbsp; ضريبة قبل المجموع
+                                    </td>
+                                    <td style="font-weight: bold;border-right:1pt solid #E5EAE9;text-align:right;padding:3pt"
+                                        class="text-right">
+                                        <span t-esc="doc.amount_untaxed"
+                                              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"
+                                        style="border-left:1pt solid #E5EAE9;text-align:right;padding:3pt" colspan="5">
+                                        VAT Amount &amp;nbsp;&amp;nbsp; قيمة الضريبة
+                                        <t t-esc="doc.currency_id.name"/>
+                                    </td>
+                                    <td style="font-weight: bold;border-right:1pt solid #E5EAE9;text-align:right;padding:3pt"
+                                        class="text-right">
+                                        <span t-esc="doc.amount_tax"
+                                              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"
+                                        style="border-left:1pt solid #E5EAE9;border-bottom:1pt solid black;text-align:right;padding:3pt"
+                                        colspan="5">
+                                        Total Amount After VAT &amp;nbsp;&amp;nbsp; المبلغ الإجمالي بعد ضريبة القيمة
+                                        المضافة
+                                        <t t-esc="doc.currency_id.name"/>
+                                    </td>
+                                    <td style="font-weight: bold;border-right:1pt solid #E5EAE9;border-bottom:1pt solid black;text-align:right;padding:3pt"
+                                        class="text-right">
+                                        <span t-esc="doc.amount_total"
+                                              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                    </td>
+                                </tr>
+                                <t t-if="o.payment_term">
+                                    <tr>
+                                        <td
+                                                style="border-left:1pt solid #E5EAE9;border-right:1pt solid #E5EAE9;padding:3pt"
+                                                colspan="6">
+                                            Payment Terms &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                                            &amp;nbsp; &amp;nbsp;
+                                            <t t-esc="doc.payment_term"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-set="formte" t-value="o.retrive_formate_configuration()"/>
+                                <t t-if="o.sale_format_id">
+                                    <t t-if="o.retrive_formate_configuration().terms_and_condition_id">
+                                        <tr>
+                                            <td
+                                                    style="border-left:1pt solid #E5EAE9;border-right:1pt solid #E5EAE9;padding:3pt"
+                                                    colspan="6">
+                                                Terms and Conditions
+                                                <br/>
+                                                <t t-foreach="o.retrive_formate_configuration().terms_and_condition_id"
+                                                   t-as="terms_and_condition">
+                                                    * &amp;nbsp;
+                                                    <t t-esc="terms_and_condition.name"/>
+                                                    <br/>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-if="o.retrive_formate_configuration().note_id">
+                                        <tr>
+                                            <td
+                                                    style="border-left:1pt solid #E5EAE9;border-right:1pt solid #E5EAE9;padding:3pt"
+                                                    colspan="6">
+                                                Note
+                                                <br/>
+                                                <t t-foreach="o.retrive_formate_configuration().note_id"
+                                                   t-as="notes">
+                                                    * &amp;nbsp;
+                                                    <t t-esc="notes.name"/>
+                                                    <br/>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-if="o.retrive_formate_configuration().payment_condition_id">
+                                        <tr>
+                                            <td
+                                                    style="border-left:1pt solid #E5EAE9;border-right:1pt solid #E5EAE9;padding:3pt"
+                                                    colspan="6">
+                                                Payment Conditions
+                                                <br/>
+                                                <t t-foreach="o.retrive_formate_configuration().payment_condition_id"
+                                                   t-as="payment_condition">
+                                                    * &amp;nbsp;
+                                                    <t t-esc="payment_condition.name"/>
+                                                    <br/>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-if="o.retrive_formate_configuration().client_scope_id">
+                                        <tr style="page-break-inside: avoid;">
+                                            <td
+                                                    style="border-left:1pt solid #E5EAE9;border-right:1pt solid #E5EAE9;padding:3pt;page-break-inside: avoid;"
+                                                    colspan="6">
+                                                Client Scope
+                                                <br/>
+                                                <t t-foreach="o.retrive_formate_configuration().client_scope_id"
+                                                   t-as="client_scope">
+                                                    * &amp;nbsp;
+                                                    <t t-esc="client_scope.name"/>
+                                                    <br/>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-if="o.retrive_formate_configuration().contractor_scope_id">
+                                        <tr>
+                                            <td
+                                                    style="border-left:1pt solid #E5EAE9;border-right:1pt solid #E5EAE9;border-bottom:1pt solid #E5EAE9;padding:3pt"
+                                                    colspan="6">
+                                                Contractor Scope
+                                                <br/>
+                                                <t t-foreach="o.retrive_formate_configuration().contractor_scope_id"
+                                                   t-as="contractor_scope">
+                                                    * &amp;nbsp;
+                                                    <t t-esc="contractor_scope.name"/>
+                                                    <br/>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+                        <br/>
+                    </div>
+                    <div>
+                        <t t-if="o.sale_format_id">
+                            <table style="border:1pt solid #E5EAE9;width:100%;color:black;margin-top:10px; color:black; page-break-inside: avoid;font-family:Arial !important;font-size:13px;"
+                                   class="table-condensed">
+                                <tr>
+                                    <td colspan="3"
+                                        style="font-weight: bold; border-top:1pt solid #E5EAE9;;">
+                                        <u>Bank Account Details &amp;nbsp; &amp;nbsp; تفاصيل الحساب المصرفي</u>
+                                    </td>
+                                </tr>
+                                <tr t-foreach="o.retrive_bank_account_details_branch()" t-as="line">
+                                    <td
+                                            style="padding:3pt">
+                                        Account Name &amp;nbsp; &amp;nbsp; أسم الحساب
+                                        <br/>
+                                        Bank Name &amp;nbsp; &amp;nbsp; اسم البنك
+                                        <br/>
+                                        Account Number &amp;nbsp; &amp;nbsp; رقم حساب
+                                        <br/>
+                                        IBAN Number &amp;nbsp; &amp;nbsp; رقم الحساب المصرفي الدولي
+                                        <br/>
+                                    </td>
+                                    <td
+                                            style="padding:3pt">
+                                        <t t-esc="o.sale_format_id.account_name"/>
+                                        <br/>
+                                        <t t-esc="o.sale_format_id.bank_name"/>
+                                        <br/>
+                                        <t t-esc="o.sale_format_id.account_number"/>
+                                        <br/>
+                                        <t t-esc="o.sale_format_id.iban_number"/>
+                                        <br/>
+                                    </td>
+                                    <td
+                                            style="border-right:1pt solid #E5EAE9;padding:3pt">
+                                        <t t-esc="o.sale_format_id.arabic_account_name"/>
+                                        <br/>
+                                        <br/>
+                                        <t t-esc="o.sale_format_id.arabic_bank_name"/>
+                                        <br/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </t>
+                    </div>
+                    <div style="font-family:Arial !important;font-size:13px;">
+                        <p>
+                            We look forward to the pleasure of serving you and assure you that your inquiries and orders
+                            will have our best attention. Should
+                            you require any further information, please feel free to contact the under signed
+                            <br/>
+                            <br/>
+                            <div class="row">
+                                <div class="col-4">
+                                    With Best Regards &amp;nbsp; &amp;nbsp;&amp;nbsp; &amp;nbsp; مع أحر تحياتي
+                                    <br/>
+                                    <br/>
+                                    <span t-field="o.contact_id.name"/>
+                                    <br/>
+                                    Marketing Manager
+                                    <br/>
+                                    056-516-6786
+                                </div>
+                                <div class="col-8">
+                                    <t t-if="o.sale_format_id">
+                                        <img t-if="o.sale_format_id.stamp_img"
+                                             t-att-src="image_data_uri(o.retrive_formate_configuration().stamp_img)"
+                                             style="width:200px;height:200px;align=left;" alt="Logo"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_sale_order">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="enz_sales_quotation_fencing.report_sale_order_fencing"/>
+            </t>
+        </t>
+    </template>
+</odoo>

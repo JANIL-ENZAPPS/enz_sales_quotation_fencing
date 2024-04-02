@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="external_layout_seti">
+        <t t-call="web.html_container">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+            <t t-if="not company">
+                <!--  Multicompany  -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <div class="header" t-att-style="report_header_style">
+                <div class="row">
+                        <div class="col-5">
+                            <b>
+                                <span style="color:#19086D;">
+                                    <t t-esc="o.company_id.name"/>
+                                </span>
+                            </b>
+                            <br/>
+                            <t t-if="o.company_id.street">
+                                <t t-esc="o.company_id.street"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.street2">
+                                <t t-esc="o.company_id.street2"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.city">
+                                <t t-esc="o.company_id.city"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.state_id">
+                                <t t-esc="o.company_id.state_id.name"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.zip">
+                                <t t-esc="o.company_id.zip"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.country_id">
+                                <t t-esc="o.company_id.country_id.name"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.company_registry">
+                                CR No.
+                                &amp;nbsp;&amp;nbsp;
+                                <t t-esc="o.company_id.company_registry"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.vat">
+                                VAT No.
+                                &amp;nbsp;&amp;nbsp;
+                                <t t-esc="o.company_id.vat"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.email">
+                                <u>
+                                    <a style="color:#19086D;" t-att-href="'mailto:' + o.company_id.email">
+                                        Email: &amp;nbsp;&amp;nbsp;
+                                        <t t-esc="o.company_id.email"/>
+                                    </a>
+                                </u>
+                            </t>
+                        </div>
+                        <div class="col-2">
+                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                 style="height:200px;align=left;" alt="Logo"/>
+                        </div>
+                        <div class="col-5 arabic" style="text-align:right;">
+                            <b>
+                                <span style="color:#19086D;">
+                                    <t t-esc="o.company_id.arabic_name"/>
+                                </span>
+                            </b>
+                            <br/>
+                            <t t-if="o.company_id.arabic_street">
+                                <t t-esc="o.company_id.arabic_street"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.arabic_street2">
+                                <t t-esc="o.company_id.arabic_street2"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.arabic_city">
+                                <t t-esc="o.company_id.arabic_city"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.arabic_state">
+                                <t t-esc="o.company_id.arabic_state"/>
+                                <br/>
+                            </t>
+                            <t t-esc="o.company_id.arabic_zip"/>
+                            <br/>
+                            <t t-if="o.company_id.arabic_country">
+                                <t t-esc="o.company_id.arabic_country"/>
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.company_registry">
+                                <t t-esc="o.company_id.company_registry"/> &amp;nbsp;&amp;nbsp;رقم السجل التجاري
+                                <br/>
+                            </t>
+                            <t t-if="o.company_id.vat">
+                                <t t-esc="o.company_id.vat"/> &amp;nbsp;&amp;nbsp;الرقم الضريبي
+                            </t>
+                            <!--                            <t t-esc="o.company_id.email"/>-->
+                        </div>
+                    </div>
+                    <hr style="background-color:#1F06A1;"/>
+            </div>
+            <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto">
+                <div t-field="company.partner_id"
+                     t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+            </div>
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-raw="0"/>
+            </div>
+            <div class="footer o_background_footer">
+                <div>
+                    <div t-field="company.report_footer"/>
+                    <div t-if="report_type == 'pdf'" class="text-muted">
+                        <hr style="text-color:orange; width:100%;"></hr>
+                        <div class="row">
+                            <div class="col-6" style="text-align:right;">
+                                Page:
+                                <span class="page"/>
+                                /
+                                <span class="topage"/>
+                            </div>
+                            <div class="col-6" style="text-align:right;">
+                                <span style="color:gray;">Powered by Enzapps</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

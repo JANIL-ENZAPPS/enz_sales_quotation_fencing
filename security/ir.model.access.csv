@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_report_format_details,sale.report.format.details.group_user,model_sale_report_format_details,base.group_user,1,1,1,1
+access_sale_report_format_terms_and_condition,sale.report.format.terms.and.condition.group_user,model_sale_report_format_terms_and_condition,base.group_user,1,1,1,1
+access_sale_report_format_note_details,sale.report.format.note.details.group_user,model_sale_report_format_note_details,base.group_user,1,1,1,1
+access_payment_conditions_details,payment.conditions.details.group_user,model_payment_conditions_details,base.group_user,1,1,1,1
+access_client_scope_details,client.scope.details.group_user,model_client_scope_details,base.group_user,1,1,1,1
+access_contractor_scope_details,contractor.scope.details.group_user,model_contractor_scope_details,base.group_user,1,1,1,1
